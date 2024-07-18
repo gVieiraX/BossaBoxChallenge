@@ -45,7 +45,6 @@ public class ToolsController {
                 .path("/{id}")
                 .buildAndExpand(toolsResponse.id())
                 .toUri();
-
         return ResponseEntity.created(headerLocation).body(toolsResponse);
     }
 
