@@ -17,6 +17,7 @@ public class Tools {
     private String title;
     private String link;
     private String description;
+    @ElementCollection
     private List<String> tags;
 
     public Tools(Long id, String title, String link, String description, List<String> tags) {

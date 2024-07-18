@@ -49,7 +49,7 @@ public class ToolsController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteTools(@PathVariable Long id) {
+    public ResponseEntity<String> deleteTools(@PathVariable("id") Long id) {
         toolsService.deleteById(id);
         return ResponseEntity.ok().body("Tools Deleted Successfully");
     }

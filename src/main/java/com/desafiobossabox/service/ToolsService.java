@@ -5,40 +5,33 @@ import com.desafiobossabox.entity.Tools;
 import com.desafiobossabox.repository.ToolsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
 @Service
 public class ToolsService {
 
+    private final ToolsRepository toolsRepository;
+
     @Autowired
-    private ToolsRepository toolsRepository;
-
-    public List<Tools> getAllTools(){
-        List<Tools> toolsList = toolsRepository.findAll();
-        return toolsList;
+    public ToolsService(ToolsRepository toolsRepository) {
+        this.toolsRepository = toolsRepository;
     }
 
-    public List<Tools> getToolsByTag(String tags){
-        List<Tools> toolsListByTag = toolsRepository.findByTags(tags);
-        return toolsListByTag;
+    public List<Tools> getAllTools() {
+        return toolsRepository.findAll();
     }
 
-    public ToolsResponse saveTools(@RequestBody Tools tools){
-       toolsRepository.save(tools);
-        ToolsResponse toolsResponse = new ToolsResponse(tools.getId(),
-                tools.getTitle(),
-                tools.getLink(),
-                tools.getDescription(),
-                tools.getTags());
-        return toolsResponse;
+    public List<Tools> getToolsByTag(String tag) {
+        return toolsRepository.findByTagsContaining(tag);
     }
 
-    public void deleteById(Long id){
+    public ToolsResponse saveTools(Tools tools) {
+        Tools toolsSaved = toolsRepository.save(tools);
+        return new ToolsResponse(toolsSaved.getId(), toolsSaved.getTitle(), toolsSaved.getLink(), toolsSaved.getDescription(), toolsSaved.getTags());
+    }
+
+    public void deleteById(Long id) {
         toolsRepository.deleteById(id);
     }
-
-
 }

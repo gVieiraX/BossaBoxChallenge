@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface ToolsRepository extends JpaRepository<Tools,Long> {
-    public List<Tools> findByTags(String tags);
+public interface ToolsRepository extends JpaRepository<Tools, Long> {
+     List<Tools> findByTagsContaining(String tag);
 }
